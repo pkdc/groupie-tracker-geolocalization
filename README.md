@@ -1,0 +1,1 @@
+To see the Map, search for the band name, and checkout its details page

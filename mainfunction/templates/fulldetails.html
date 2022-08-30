@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Groupie tracker</title>
+    <link rel="stylesheet" href="/mainfunction/style/style.css" />
+
+</head>
+
+<body>
+    <section>
+        <form action="/" method="POST">
+            <input type="submit" class="homebutton" value="Return to Home Page"></input></form>
+            
+        <div class="navbar"><h1>{{.Name}}</h1></div>
+        <div class="detailpage">
+        
+       <div class= "otherinfosuntilconcert">
+        <p><b>Creation Date:</b> {{.CreationDate}}</p>
+        <p><b>First Album Released:</b> {{.FirstAlbum}}</p>
+        <p><b>Members:</b></p>
+        {{range .Members}}
+        <ul>
+            <li>{{.}}</li>
+        </ul>
+        {{end}}
+    </div>
+    <div class="detailpageimg"><img src={{.Image}} width="350" alt={{.Name}}></div>
+</div>
+    <div class="detailpage">
+        <div class="concert">
+            <p><b>Concert Locations and Dates:</b></p>
+                {{range $key, $value := .DatesLocations}}
+               <ul class="locations"> <li><b>{{$key}}</b></li></ul>
+                {{range $value}}
+                <ul class="dates">
+                    <li>{{.}}</li>
+                </ul>
+                <br> {{end}} {{end}}
+                </p>
+            </div>
+        <div id="map"></div>
+    </div>
+</div>
+    </section>
+    <script>
+        let positions = [];
+        {{range .CoordsDates}}
+            positions.push({{.Coord}})
+        {{end}}
+        console.log(positions)
+        function initMap() {
+            const map = new google.maps.Map(document.querySelector("#map"), {
+                center: {lat:0, lng:0},
+                zoom: 1,
+            });
+            for (pos of positions) {
+                m = new google.maps.Marker({
+                    position: pos,
+                    map: map,
+                }); 
+            }
+            const poly = new google.maps.Polyline({
+                path: positions,
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.5,
+                strokeWeight: 3,
+            });
+            poly.setMap(map)
+        }
+    </script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2wftlgG9fePMHDv7JweSNrB3QncemScQ&callback=initMap"
+    async
+    ></script>
+    <script src="/mainfunction/style/app.js"> </script>
+</body>
