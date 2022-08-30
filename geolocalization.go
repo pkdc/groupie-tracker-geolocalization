@@ -12,7 +12,7 @@ import (
 
 const (
 	baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="
-	apiKey  = "&key=AIzaSyA2wftlgG9fePMHDv7JweSNrB3QncemScQ"
+	apiKey  = "&key=*********************************"
 )
 
 func getCoord(url string, coordChan chan Coordinate) {
