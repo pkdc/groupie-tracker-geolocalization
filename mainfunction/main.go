@@ -6,7 +6,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"os/exec"
 	"strconv"
 	"strings"
 )
@@ -202,10 +201,10 @@ func searchPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	err := exec.Command("xdg-open", "http://localhost:8080/").Start()
-	if err != nil {
-		log.Fatal(err)
-	}
+	// err := exec.Command("xdg-open", "http://localhost:8080/").Start()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 	fs := http.FileServer(http.Dir("style"))
 	fmt.Printf("Starting server at port 8080\n")
 
